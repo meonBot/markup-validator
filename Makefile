@@ -3,7 +3,7 @@ VERSION = $(shell perl -ne '/^\$$VERSION\b.*?([\d.]+)/ && print $$1' httpd/cgi-b
 CSS_FILES = htdocs/style/base.css htdocs/style/results.css
 JS_SOURCES = htdocs/scripts/mootools-1.2.5-core-nc.js \
 	htdocs/scripts/mootools-1.2.5.1-more.js	htdocs/scripts/w3c-validator.js
-PERL_FILES = httpd/cgi-bin/check httpd/cgi-bin/sendfeedback.pl \
+PERL_FILES = httpd/cgi-bin/check \
 	httpd/mod_perl/startup.pl misc/soc2xml.pl misc/spmpp.pl \
 	misc/docs_errors.pl misc/bundle/Makefile.PL \
 	misc/bundle/lib/Bundle/W3C/Validator.pm
@@ -62,10 +62,5 @@ dist: all
 		exit 1 ; } ; \
 	done
 	misc/mkrelease.sh $(VERSION)
-
-w3c:
-	perl -pi -e 'undef $$/; s/\n\n<p id="test_warning".+//s' htdocs/intro.html
-	perl -pi -e 's/no_w3c.png/w3c.png/' htdocs/header.html
-	perl -pi -e 's/no_w3c.png/w3c.png/' share/templates/en_US/header.tmpl
 
 .SUFFIXES: .css .css.gz .js .js.gz
